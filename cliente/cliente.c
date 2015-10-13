@@ -32,7 +32,7 @@ int main(int *argc, char *argv[])
 	int recibidos=0,enviados=0;
 	int estado=S_HELO;
 	char option;
-
+	int com=0;
 	WORD wVersionRequested;
 	WSADATA wsaData;
 	int err;
@@ -134,10 +134,35 @@ int main(int *argc, char *argv[])
 					if(estado!=S_HELO)
 					// Ejercicio: Comprobar el estado de envio
 						enviados=send(sockfd,buffer_out,(int)strlen(buffer_out),0);
+					if(com==0){//Con el entero 'com' compruebo si estoy en la primera iteración o en el resto.
+						com=1;
+						if(enviados<0) {
+							DWORD error=GetLastError();
+							printf("CLIENTE> Error %d en el envio de datos\r\n",error);
+							estado=S_QUIT;}
+					}else{
+							if(enviados<=0)
+					{
+						DWORD error=GetLastError();
+						if(enviados<0)
+						{
+							printf("CLIENTE> Error %d en envio de datos\r\n",error);
+							estado=S_QUIT;
+						}
+						else
+						{
+							printf("CLIENTE> Conexión con el servidor cerrada\r\n");
+							estado=S_QUIT;}
+						
+					
+						}
+					}
 
+					
+					
 					//Recibo
 					recibidos=recv(sockfd,buffer_in,512,0);
-
+					
 					if(recibidos<=0)
 					{
 						DWORD error=GetLastError();

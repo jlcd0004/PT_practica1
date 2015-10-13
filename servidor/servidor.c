@@ -91,6 +91,24 @@ main()
 		
 		enviados=send(nuevosockfd,buffer_out,(int)strlen(buffer_out),0);
 		//TODO Comprobar error de envío
+		if(enviados<=0)
+					{
+						DWORD error=GetLastError();
+						if(enviados<0)
+						{
+							printf("CLIENTE> Error %d en el envio de datos\r\n",error);
+							estado=S_USER;
+							fin_conexion = 1;
+						}
+						else
+						{
+							printf("CLIENTE> Conexión con el cliente cerrada\r\n");
+							estado=S_USER;
+							fin_conexion = 1;}
+						
+					
+		}
+		
  
 		//Se reestablece el estado inicial
 		estado = S_USER;
@@ -102,6 +120,23 @@ main()
 			//Se espera un comando del cliente
 			recibidos = recv(nuevosockfd,buffer_in,1023,0);
 			//TODO Comprobar posible error de recepción
+			if(recibidos<=0)
+					{
+						DWORD error=GetLastError();
+						if(recibidos<0)
+						{
+							printf("CLIENTE> Error %d en la recepcion de datos\r\n",error);
+							estado=S_USER;
+							fin_conexion = 1;
+						}
+						else
+						{
+							printf("CLIENTE> Conexión con el cliente cerrada\r\n");
+							estado=S_USER;
+							fin_conexion = 1;}
+						
+					
+			}
 			
 			buffer_in[recibidos] = 0x00;
 			printf ("SERVIDOR [bytes recibidos]> %d\r\nSERVIDOR [datos recibidos]>%s", recibidos, buffer_in);
@@ -199,6 +234,24 @@ main()
 
 			enviados=send(nuevosockfd,buffer_out,(int)strlen(buffer_out),0);
 			//TODO 
+			if(enviados<=0)
+					{
+						DWORD error=GetLastError();
+						if(enviados<0)
+						{
+							printf("CLIENTE> Error %d en el envio de datos\r\n",error);
+							estado=S_USER;
+							fin_conexion = 1;
+						}
+						else
+						{
+							printf("CLIENTE> Conexión con el cliente cerrada\r\n");
+							estado=S_USER;
+							fin_conexion = 1;}
+						
+					
+		}
+			
 
 
 		} while (!fin_conexion);
