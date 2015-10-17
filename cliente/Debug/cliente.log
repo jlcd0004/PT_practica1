@@ -1,4 +1,4 @@
-﻿Compilación iniciada a las 13/10/2015 12:08:20.
+﻿Compilación iniciada a las 17/10/2015 20:30:56.
      1>Proyecto "C:\Users\Jose Luis\Documents\GitHub\PT_practica1\cliente\cliente.vcxproj" en el nodo 2 (Build destinos).
      1>ClCompile:
          D:\Archivos de programa (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt cliente.c
@@ -20,4 +20,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:01.17
+Tiempo transcurrido 00:00:01.42

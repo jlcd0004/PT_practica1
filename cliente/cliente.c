@@ -117,7 +117,7 @@ int main(int *argc, char *argv[])
 							sprintf_s (buffer_out, sizeof(buffer_out), "%s %s%s",PW,input,CRLF);
 						break;
 					case S_DATA:
-						printf("CLIENTE> Introduzca datos (enter o QUIT para salir): ");
+						printf("CLIENTE> Introduzca dos numeros enteros de maximo 4 digitos precedidos de 'sum' (enter o QUIT para salir): ");
 						gets(input);
 						if(strlen(input)==0)
 						{

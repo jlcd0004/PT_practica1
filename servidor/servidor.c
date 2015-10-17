@@ -30,12 +30,12 @@ main()
 	WSADATA wsaData;
 	SOCKET sockfd,nuevosockfd;
 	struct sockaddr_in  local_addr,remote_addr;
-	char buffer_out[1024],buffer_in[1024], cmd[10], usr[10], pas[10];
+	char buffer_out[1024],buffer_in[1024], cmd[50], usr[10], pas[10], SUM[10];
 	int err,tamanio;
 	int fin=0, fin_conexion=0;
 	int recibidos=0,enviados=0;
 	int estado=0;
-
+	int NUM1,NUM2,SUMA;
 	/** INICIALIZACION DE BIBLIOTECA WINSOCK2 **
 	 ** OJO!: SOLO WINDOWS                    **/
 	wVersionRequested=MAKEWORD(1,1);
@@ -207,8 +207,9 @@ main()
 					buffer_in[recibidos] = 0x00;
 					
 					strncpy_s(cmd,sizeof(cmd), buffer_in, 4);
+					sscanf(buffer_in,"%s%d%d",&SUM,&NUM1,&NUM2);
 
-					printf ("SERVIDOR [Comando]>%s\r\n",cmd);
+					printf ("SERVIDOR [Comando]>%s\r\n",SUM);
 					
 					if ( strcmp(cmd,SD)==0 )
 					{
@@ -223,6 +224,12 @@ main()
 					}
 					else
 					{
+						
+						if(strcmp(SUM,"sum")==0 && NUM1<9999 && NUM2<9999){
+							SUMA=NUM1+NUM2;
+							printf( "ok NUM1:%d  NUM2:%d SUM:%d %s",NUM1,NUM2,SUMA,CRLF);
+							sprintf_s(buffer_out, sizeof(buffer_out), "ok %d %s",SUMA,CRLF);
+						}else
 						sprintf_s (buffer_out, sizeof(buffer_out), "%s Comando incorrecto%s",ER,CRLF);
 					}
 					break;
