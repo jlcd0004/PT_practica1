@@ -177,7 +177,7 @@ int main(int *argc, char *argv[])
 			send me devuelve el número de bytes si no hay error, si me envía un -1 es error y un 0 es que se libera la conexión de forma 
 			acordada o por algún problema entre servidor y cliente. 
 			****************************************************************************************************************************/
-					if(estado!=S_HELO)//En todo momento que el estado no sea S_HELO, se ejecutan las funciones recv y send. Las cuales
+					if(estado!=S_HELO){//En todo momento que el estado no sea S_HELO, se ejecutan las funciones recv y send. Las cuales
 						              //son las que nos permitirán transmitir y recibir información del servidor. 
 					enviados=send(sockfd,buffer_out,(int)strlen(buffer_out),0);
 					 if(com==0){//Con el entero 'com' compruebo si estoy en la primera iteración o en el resto.
@@ -202,7 +202,7 @@ int main(int *argc, char *argv[])
 							estado=S_QUIT;
 						 }
 						}
-					   }
+					 }}
             /********************************************************************************************************************************
 		    Envio de mensajes TCP.
 			int recv(int socket, void *rcvBuffer, unsigned int bufferLength, int flags);
@@ -253,7 +253,7 @@ int main(int *argc, char *argv[])
 		}	
 		printf("-----------------------\r\n\r\nCLIENTE> Volver a conectar (S/N)\r\n");
 		option=_getche();//lee un solo carácter de la consola con repetición, es decir, el carácter se muestra en la consola.
-
+		
 	}while(option!='n' && option!='N');
 
 	

@@ -184,14 +184,16 @@ comunicación se completa, esta se termina con la función close().
 						if(recibidos<0)                //En caso de que me devuelva un valor entero negativo, aviso al cliente del error. 
 						{
 							printf("CLIENTE> Error %d en la recepcion de datos\r\n",error);
-							estado=S_USER;
+							
 							fin_conexion = 1;
+							continue;
 						}
 						else //En otro caso, se cierra la conexión y se vuelve al estado S_USER. 
 						{
 							printf("CLIENTE> Conexión con el cliente cerrada\r\n");
-							estado=S_USER;
+							
 							fin_conexion = 1;
+							continue;
 						}											
 			}
 			
@@ -222,6 +224,7 @@ comunicación se completa, esta se termina con la función close().
 					else
 					{
 						sprintf_s (buffer_out, sizeof(buffer_out), "%s Comando incorrecto%s",ER,CRLF);
+						
 					}
 				break;
 
@@ -267,7 +270,10 @@ comunicación se completa, esta se termina con la función close().
 					sscanf(buffer_in,"%s%d%d",&SUM,&NUM1,&NUM2);//Extraigo del mensaje el comando y los dos números enteros.
 
 					printf ("SERVIDOR [Comando]>%s\r\n",SUM);
-					
+					if(NUM1==0 && NUM2==0)
+						sprintf_s(buffer_out, sizeof(buffer_out), "Formato incorrecto.\r\n");
+
+			else{
 					if ( strcmp(cmd,SD)==0 )
 					{
 						sprintf_s (buffer_out, sizeof(buffer_out), "%s Fin de la conexion%s", OK,CRLF);
@@ -285,9 +291,11 @@ comunicación se completa, esta se termina con la función close().
 							SUMA=NUM1+NUM2; //Se realiza la suma. 
 							printf("ok NUM1:%d  NUM2:%d SUM:%d %s",NUM1,NUM2,SUMA,CRLF);//Imrpimo por pantalla el resultado de la suma y los dos números introducidos. 
 							sprintf_s(buffer_out, sizeof(buffer_out), "ok %d %s",SUMA,CRLF);//Envío al cliente el resultado de la suma y se lo imprimo por pantalla de forma segura. 
-						}else
+						    NUM1=0;
+							NUM2=0;
+					}else
 						sprintf_s (buffer_out, sizeof(buffer_out), "%s Comando incorrecto%s",ER,CRLF);
-					}
+					} }
 					break;
 
 				default:
